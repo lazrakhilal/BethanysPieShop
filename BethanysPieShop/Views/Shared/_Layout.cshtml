@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Identity
+<!DOCTYPE html>
+
+@inject SignInManager<IdentityUser> signInManager
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <div class="navbar-collapse">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="nav">
+                            <li class="nav-item"><h4><a class="nav-link" asp-controller="Home" asp-action="Index"> Bethany's Pie shop </a></h4></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Feedback" asp-action="Index"> Feedback </a></li>
+                        </ul>
+                    </div>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <div class="col-md-6">
+                            <form asp-area="" asp-controller="Account" asp-action="Logout" id="LogoutForm" method="post">
+                                <ul class="nav justify-content-end">
+                                    <li class="nav-item"><a href="javascript:document.getElementById('LogoutForm').submit()">Logout</a></li>s
+                                </ul>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6">
+                            <ul class="nav justify-content-end">
+                                <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Register"> Register </a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login"> Log in </a></li>
+                            </ul>
+                        </div>
+
+
+                    }
+                </div>
+                    </div>
+                </div>
+    </nav>
+    <div class="container body-content">
+        <div class="row">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
